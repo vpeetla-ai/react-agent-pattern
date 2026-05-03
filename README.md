@@ -21,6 +21,14 @@ pytest
 
 The default demo uses a deterministic model stub so the architecture can be tested without external API keys.
 
+For local setup, environment variables, LLM API keys, database configuration, and production adapter guidance, see [docs/LOCAL_DEVELOPMENT.md](docs/LOCAL_DEVELOPMENT.md).
+
+Create your local secret file from:
+
+```bash
+cp .env.example .env
+```
+
 ## Repo Layout
 
 ```text
@@ -39,4 +47,3 @@ tests/
 ## Production Mapping
 
 Replace `ScriptedReasoningModel` with an LLM gateway that supports tool-call structured output. Keep the rest of the boundaries intact: the agent should not know vendor SDK details, and tools should remain independently testable.
-
