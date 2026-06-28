@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReAct Agent Pattern — Live Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <p style="color:#c084fc;text-transform:uppercase;letter-spacing:.12em;font-size:.75rem">Production Agent Patterns · 1/5</p>
+      <h1>ReAct Agent Pattern</h1>
+      <p style="color:#b6a3c9">Thought → Action → Observation loop with bounded iterations (deterministic demo trace).</p>
+      <section class="panel">
+        <button id="run" type="button">Run demo: Calculate 42 × 7</button>
+        <div id="answer" class="answer"></div>
+        <div id="trace" class="trace"></div>
+      </section>
+    </main>
+    <script>
+      const DEMO = {
+        answer: "Grounded answer: 294",
+        events: [
+          { name: "request.received", payload: { user_input: "Calculate 42 * 7" } },
+          { name: "model.decision", payload: { step: 1, thought: "The user needs arithmetic, so I should use the calculator.", action: "calculator" } },
+          { name: "tool.observation", payload: { step: 1, tool: "calculator", observation: "294" } },
+          { name: "model.decision", payload: { step: 2, thought: "I have enough grounded evidence from the tool.", final_answer: "Grounded answer: 294" } },
+          { name: "request.completed", payload: { step: 2 } },
+        ],
+      };
+      const trace = document.getElementById("trace");
+      document.getElementById("run").onclick = async () => {
+        trace.innerHTML = "";
+        document.getElementById("answer").textContent = "";
+        for (const event of DEMO.events) {
+          const el = document.createElement("div");
+          el.className = "event live";
+          el.innerHTML = `<strong>${event.name}</strong><pre>${JSON.stringify(event.payload, null, 2)}</pre>`;
+          trace.appendChild(el);
+          await new Promise((r) => setTimeout(r, 650));
+          el.classList.remove("live");
+          el.classList.add("done");
+        }
+        document.getElementById("answer").textContent = DEMO.answer;
+      };
+    </script>
+  </body>
+</html>
