@@ -1,5 +1,17 @@
 # ReAct Agent Pattern
 
+
+## Agent skills (Cursor + Codex)
+
+Org skills: [vpeetla-ai-skills](https://github.com/vpeetla-ai/vpeetla-ai-skills). This repo includes `.cursor/skills/`, `AGENTS.md`, and `CONTEXT.md`.
+
+```bash
+git clone https://github.com/vpeetla-ai/vpeetla-ai-skills.git
+./vpeetla-ai-skills/scripts/install.sh --cursor --codex --project .
+```
+
+---
+
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://react-agent-pattern.vercel.app)
 [![Part of Production Agent Patterns](https://img.shields.io/badge/series-Production%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
