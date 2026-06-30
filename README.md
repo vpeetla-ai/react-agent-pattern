@@ -12,6 +12,19 @@ git clone https://github.com/vpeetla-ai/vpeetla-ai-skills.git
 
 ---
 
+
+## Implementation status
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Pattern demo + trace UI | ✅ | Live Vercel demo |
+| Core agent loop | ✅ | Reference implementation |
+| LangGraph production graph | 🟡 | Teaching scope — compose into VAP for fleet use |
+| MCP tool bridge | ❌ | See LoopForge / VAP MCP docs |
+| AegisAI gateway | ❌ | No side effects in pattern demo |
+| Pytest regression | ✅ | `pytest -q` in repo |
+
+
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://react-agent-pattern.vercel.app)
 [![Part of Production Agent Patterns](https://img.shields.io/badge/series-Production%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
