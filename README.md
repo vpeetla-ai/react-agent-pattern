@@ -1,19 +1,32 @@
 # ReAct Agent Pattern
 
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://react-agent-pattern.vercel.app)
+[![Part of Production Agent Patterns](https://img.shields.io/badge/series-Production%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Agent skills (Cursor + Codex)
+**Production reference for ReAct loops** — explicit thought → action → observation with bounded iterations. Used in **VAP Deep Research**.
 
-Org skills: [vpeetla-ai-skills](https://github.com/vpeetla-ai/vpeetla-ai-skills). This repo includes `.cursor/skills/`, `AGENTS.md`, and `CONTEXT.md`.
+[▶ Live demo](https://react-agent-pattern.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [Portfolio](https://venkat-ai.com/work) · [Pattern series](https://github.com/vpeetla-ai/ai-content-factory/blob/main/docs/agent-patterns/ROADMAP.md)
 
-```bash
-git clone https://github.com/vpeetla-ai/vpeetla-ai-skills.git
-./vpeetla-ai-skills/scripts/install.sh --cursor --codex --project .
-```
+## What this is
+
+Part **1 of 5** in Production Agent Patterns — tool-using assistants, retrieval workflows, and enterprise Q&A with inspectable traces.
+
+## How we solve it
+
+| Problem | Approach |
+|---------|----------|
+| Monolithic LLM calls | Explicit ReAct loop with stop conditions |
+| Runaway tool loops | Bounded iterations + schema-light validation |
+| Untestable agents | Deterministic model stub — `pytest` without API keys |
+
+## Case study & tradeoffs
+
+No standalone case study — see [venkat-ai.com/work](https://venkat-ai.com/work) and [VAP case study](https://github.com/vpeetla-ai/ai-architecture-portfolio/blob/main/case-studies/venkat-ai-platform.md). Tradeoffs in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
-
-## Implementation status
+## Status
 
 | Component | Status | Notes |
 |-----------|--------|-------|
@@ -24,40 +37,16 @@ git clone https://github.com/vpeetla-ai/vpeetla-ai-skills.git
 | AegisAI gateway | ❌ | No side effects in pattern demo |
 | Pytest regression | ✅ | `pytest -q` in repo |
 
+## Agent skills (Cursor + Codex)
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://react-agent-pattern.vercel.app)
-[![Part of Production Agent Patterns](https://img.shields.io/badge/series-Production%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+Org skills: [vpeetla-ai-skills](https://github.com/vpeetla-ai/vpeetla-ai-skills).
 
-**Part 1 of 5** in the [Production Agent Patterns](https://github.com/vpeetla-ai/react-agent-pattern) series.
-
-Production-grade reference implementation of the **ReAct (Reason + Act)** pattern for tool-using assistants, retrieval workflows, API copilots, and enterprise Q&A.
-
-| # | Pattern | Repository | Use when |
-|---|---------|------------|----------|
-| 1 | **ReAct** | **this repo** | Tool use + reasoning loops |
-| 2 | Reflection | [reflection-agent-pattern](https://github.com/vpeetla-ai/reflection-agent-pattern) | Self-critique and improve output |
-| 3 | Plan-Execute | [plan-execute-agent-pattern](https://github.com/vpeetla-ai/plan-execute-agent-pattern) | Decompose goals into steps |
-| 4 | Multi-Agent | [multi-agent-system-pattern](https://github.com/vpeetla-ai/multi-agent-system-pattern) | Specialized role delegation |
-| 5 | Swarm | [swarm-agent-pattern](https://github.com/vpeetla-ai/swarm-agent-pattern) | Parallel autonomous agents |
-
-[▶ Live demo](https://react-agent-pattern.vercel.app) · [📖 Full series roadmap](https://github.com/vpeetla-ai/ai-content-factory/blob/main/docs/agent-patterns/ROADMAP.md) · [🚀 See in production — AI Content Factory](https://ai-content-factory-iota.vercel.app)
+```bash
+git clone https://github.com/vpeetla-ai/vpeetla-ai-skills.git
+./vpeetla-ai-skills/scripts/install.sh --cursor --codex --project .
+```
 
 ---
-
-## What you'll learn
-
-- Explicit **thought → action → observation** loop with bounded iterations
-- Tool contracts with schema-light validation and deterministic tests
-- Stop conditions that prevent hallucination loops and runaway cost
-- Clean separation: model reasoning, tool execution, orchestration, audit traces
-
-## What this repo demonstrates
-
-- Explicit thought/action/observation loop with bounded iterations
-- Tool contracts with schema-light validation and deterministic tests
-- Stop conditions that prevent hallucination loops and runaway cost
-- Separation between model reasoning, tool execution, orchestration, and audit traces
 
 ## Quick start
 
