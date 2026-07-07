@@ -7,16 +7,38 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <p style="color:#c084fc;text-transform:uppercase;letter-spacing:.12em;font-size:.75rem">Production Agent Patterns · 1/5</p>
-      <h1>ReAct Agent Pattern</h1>
-      <p style="color:#b6a3c9">Thought → Action → Observation loop with bounded iterations (deterministic demo trace).</p>
+    <header class="app-header">
+      <div class="app-header__inner">
+        <a href="/" class="brand">
+          <div class="brand__mark">R1</div>
+          <div class="brand__text">
+            <p class="brand__eyebrow">Production agent patterns · 1/5</p>
+            <p class="brand__title">ReAct</p>
+          </div>
+        </a>
+        <div class="header-actions">
+          <span class="status-badge">Deterministic demo</span>
+          <a href="https://github.com/vpeetla-ai/react-agent-pattern" class="btn-ghost" style="padding:0.4rem 0.75rem;font-size:0.8rem;text-decoration:none">GitHub</a>
+        </div>
+      </div>
+    </header>
+    <main class="shell app-main">
+      <div class="page-hero">
+        <p class="eyebrow">Thought → Action → Observation</p>
+        <h1>ReAct Agent Pattern</h1>
+        <p class="lede">Bounded iteration loop with tool grounding — watch the trace animate step by step.</p>
+      </div>
       <section class="panel">
-        <button id="run" type="button">Run demo: Calculate 42 × 7</button>
+        <h2>Run demo</h2>
+        <p class="muted">Calculate 42 × 7 using the calculator tool with a deterministic trace.</p>
+        <div class="inline-actions">
+          <button id="run" type="button">Run demo</button>
+        </div>
         <div id="answer" class="answer"></div>
-        <div id="trace" class="trace"></div>
+        <div id="trace" class="trace-events"></div>
       </section>
     </main>
+    <footer class="app-footer">ReAct pattern · <a href="https://github.com/vpeetla-ai/react-agent-pattern">vpeetla-ai</a></footer>
     <script>
       const DEMO = {
         answer: "Grounded answer: 294",
