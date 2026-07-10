@@ -5,16 +5,16 @@
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square)]() [![LangGraph](https://img.shields.io/badge/LangGraph-9333EA?style=flat-square)]() [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square)]() [![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square)]()
 <!-- vpeetla-tech-stack:end -->
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://react-agent-pattern.vercel.app)
-[![Part of Production Agent Patterns](https://img.shields.io/badge/series-Production%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
+[![Part of Curriculum Agent Patterns](https://img.shields.io/badge/series-Curriculum%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Production reference for ReAct loops** — explicit thought → action → observation with bounded iterations. Used in **VAP Deep Research**.
+**Curriculum teaching stub for ReAct loops** — explicit thought → action → observation with bounded iterations. Used in **VAP Deep Research**.
 
 [▶ Live demo](https://react-agent-pattern.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [Portfolio](https://venkat-ai.com/work) · [Pattern series](https://github.com/vpeetla-ai/ai-content-factory/blob/main/docs/agent-patterns/ROADMAP.md)
 
 ## What this is
 
-Part **1 of 5** in Production Agent Patterns — tool-using assistants, retrieval workflows, and enterprise Q&A with inspectable traces.
+Part **1 of 5** in Curriculum Agent Patterns — tool-using assistants, retrieval workflows, and enterprise Q&A with inspectable traces.
 
 ## How we solve it
 
@@ -29,6 +29,8 @@ Part **1 of 5** in Production Agent Patterns — tool-using assistants, retrieva
 No standalone case study — see [venkat-ai.com/work](https://venkat-ai.com/work) and [VAP case study](https://github.com/vpeetla-ai/ai-architecture-portfolio/blob/main/case-studies/venkat-ai-platform.md). Tradeoffs in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
+
+> **Scope:** Curriculum stub with deterministic tests and a live trace viewer — not a production agent fleet. Compose into [Venkat AI Platform](https://github.com/vpeetla-ai/venkat-ai-platform) for governed graphs.
 
 ## Status
 
