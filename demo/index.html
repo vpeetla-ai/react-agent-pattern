@@ -17,7 +17,7 @@
           </div>
         </a>
         <div class="header-actions">
-          <span class="status-badge">Deterministic demo</span>
+          <span class="status-badge status-badge--warn">Simulated · deterministic</span>
           <a href="https://github.com/vpeetla-ai/react-agent-pattern" class="btn-ghost" style="padding:0.4rem 0.75rem;font-size:0.8rem;text-decoration:none">GitHub</a>
         </div>
       </div>
@@ -26,45 +26,114 @@
       <div class="page-hero">
         <p class="eyebrow">Thought → Action → Observation</p>
         <h1>ReAct Agent Pattern</h1>
-        <p class="lede">Bounded iteration loop with tool grounding — watch the trace animate step by step.</p>
+        <p class="lede">Bounded iteration loop with tool grounding — pick a scenario, watch the trace, read simulated metrics.</p>
       </div>
+
       <section class="panel">
-        <h2>Run demo</h2>
-        <p class="muted">Calculate 42 × 7 using the calculator tool with a deterministic trace.</p>
+        <h2>Run scenario</h2>
+        <p class="muted" id="scenario-desc"></p>
+        <div class="scenario-chips" id="chips" role="tablist" aria-label="Scenarios"></div>
         <div class="inline-actions">
-          <button id="run" type="button">Run demo</button>
+          <button id="run" type="button" class="btn btn-primary">Run scenario</button>
+        </div>
+        <p class="microcopy">Metrics are <strong>simulated</strong> from the deterministic stub — not live LLM usage. Teach the pattern here; run open-ended work in VAP / OmniForge.</p>
+        <div class="metrics-grid" id="metrics" aria-live="polite">
+          <div class="metric"><p class="metric__label">Steps</p><p class="metric__value" data-k="steps">—</p></div>
+          <div class="metric"><p class="metric__label">Tool calls</p><p class="metric__value" data-k="metric2">—</p></div>
+          <div class="metric"><p class="metric__label">Stop reason</p><p class="metric__value" data-k="stop">—</p></div>
+          <div class="metric"><p class="metric__label">Latency (sim)</p><p class="metric__value" data-k="latency">—</p></div>
         </div>
         <div id="answer" class="answer"></div>
         <div id="trace" class="trace-events"></div>
       </section>
+
+      <section class="panel compose-cta">
+        <h2>Run the system</h2>
+        <p class="muted">This repo teaches one pattern. Compose it into a governed multi-agent OS or multimodal platform.</p>
+        <div class="inline-actions">
+          <a class="btn btn-primary" href="https://venkat-ai-platform.vercel.app">Open VAP</a>
+          <a class="btn btn-ghost" href="https://omniforge-flame.vercel.app">Open OmniForge</a>
+        </div>
+      </section>
     </main>
     <footer class="app-footer">ReAct pattern · <a href="https://github.com/vpeetla-ai/react-agent-pattern">vpeetla-ai</a></footer>
     <script>
-      const DEMO = {
-        answer: "Grounded answer: 294",
-        events: [
-          { name: "request.received", payload: { user_input: "Calculate 42 * 7" } },
-          { name: "model.decision", payload: { step: 1, thought: "The user needs arithmetic, so I should use the calculator.", action: "calculator" } },
-          { name: "tool.observation", payload: { step: 1, tool: "calculator", observation: "294" } },
-          { name: "model.decision", payload: { step: 2, thought: "I have enough grounded evidence from the tool.", final_answer: "Grounded answer: 294" } },
-          { name: "request.completed", payload: { step: 2 } },
-        ],
-      };
+      const DELAY_MS = 650;
+      const METRIC2_KEY = 'tool_calls';
+      const SCENARIOS = [
+        {"id": "calc", "label": "Calculator tool", "blurb": "Calculate 42 × 7 — one tool call, then stop with grounded evidence.", "answer": "Grounded answer: 294", "metrics": {"steps": 2, "tool_calls": 1, "stop_reason": "final_answer", "latency_ms": 1300}, "events": [{"name": "request.received", "payload": {"user_input": "Calculate 42 * 7"}}, {"name": "model.decision", "payload": {"step": 1, "thought": "The user needs arithmetic, so I should use the calculator.", "action": "calculator"}}, {"name": "tool.observation", "payload": {"step": 1, "tool": "calculator", "observation": "294"}}, {"name": "model.decision", "payload": {"step": 2, "thought": "I have enough grounded evidence from the tool.", "final_answer": "Grounded answer: 294"}}, {"name": "request.completed", "payload": {"step": 2}}]},
+        {"id": "search", "label": "Search then answer", "blurb": "Look up a fact with a search tool, then answer from the observation — classic ReAct grounding.", "answer": "Grounded answer: Paris is the capital of France.", "metrics": {"steps": 2, "tool_calls": 1, "stop_reason": "final_answer", "latency_ms": 1950}, "events": [{"name": "request.received", "payload": {"user_input": "What is the capital of France?"}}, {"name": "model.decision", "payload": {"step": 1, "thought": "I should look this up rather than guess.", "action": "search"}}, {"name": "tool.observation", "payload": {"step": 1, "tool": "search", "observation": "capital_of_france=Paris"}}, {"name": "model.decision", "payload": {"step": 2, "thought": "Observation is sufficient.", "final_answer": "Grounded answer: Paris is the capital of France."}}, {"name": "request.completed", "payload": {"step": 2}}]},
+        {"id": "max_iter", "label": "Hit max iterations", "blurb": "Show the safety bound — loop stops at max_iterations without a final answer.", "answer": "Stopped: max_iterations=3 reached without a final answer.", "metrics": {"steps": 3, "tool_calls": 3, "stop_reason": "max_iterations", "latency_ms": 2600}, "events": [{"name": "request.received", "payload": {"user_input": "Keep refining until perfect", "max_iterations": 3}}, {"name": "model.decision", "payload": {"step": 1, "thought": "Need more evidence.", "action": "search"}}, {"name": "tool.observation", "payload": {"step": 1, "tool": "search", "observation": "partial"}}, {"name": "model.decision", "payload": {"step": 2, "thought": "Still incomplete.", "action": "search"}}, {"name": "tool.observation", "payload": {"step": 2, "tool": "search", "observation": "partial"}}, {"name": "model.decision", "payload": {"step": 3, "thought": "Still incomplete.", "action": "search"}}, {"name": "tool.observation", "payload": {"step": 3, "tool": "search", "observation": "partial"}}, {"name": "request.stopped", "payload": {"reason": "max_iterations", "steps": 3}}]}
+      ];
+
+      let selected = 0;
+      let running = false;
+      const chips = document.getElementById("chips");
+      const desc = document.getElementById("scenario-desc");
       const trace = document.getElementById("trace");
-      document.getElementById("run").onclick = async () => {
+      const answer = document.getElementById("answer");
+      const runBtn = document.getElementById("run");
+
+      function renderChips() {
+        chips.innerHTML = "";
+        SCENARIOS.forEach((s, i) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "scenario-chip" + (i === selected ? " is-active" : "");
+          b.textContent = s.label;
+          b.setAttribute("role", "tab");
+          b.setAttribute("aria-selected", i === selected ? "true" : "false");
+          b.onclick = () => {
+            if (running) return;
+            selected = i;
+            renderChips();
+            resetView();
+          };
+          chips.appendChild(b);
+        });
+        desc.textContent = SCENARIOS[selected].blurb;
+      }
+
+      function setMetrics(m) {
+        const root = document.getElementById("metrics");
+        root.querySelector('[data-k="steps"]').textContent = m ? String(m.steps) : "—";
+        root.querySelector('[data-k="metric2"]').textContent = m ? String(m[METRIC2_KEY]) : "—";
+        root.querySelector('[data-k="stop"]').textContent = m ? m.stop_reason : "—";
+        root.querySelector('[data-k="latency"]').textContent = m ? m.latency_ms + " ms" : "—";
+      }
+
+      function resetView() {
         trace.innerHTML = "";
-        document.getElementById("answer").textContent = "";
-        for (const event of DEMO.events) {
+        answer.textContent = "";
+        setMetrics(null);
+      }
+
+      async function runScenario() {
+        if (running) return;
+        running = true;
+        runBtn.disabled = true;
+        resetView();
+        const demo = SCENARIOS[selected];
+        const t0 = performance.now();
+        for (const event of demo.events) {
           const el = document.createElement("div");
           el.className = "event live";
           el.innerHTML = `<strong>${event.name}</strong><pre>${JSON.stringify(event.payload, null, 2)}</pre>`;
           trace.appendChild(el);
-          await new Promise((r) => setTimeout(r, 650));
+          await new Promise((r) => setTimeout(r, DELAY_MS));
           el.classList.remove("live");
           el.classList.add("done");
         }
-        document.getElementById("answer").textContent = DEMO.answer;
-      };
+        const elapsed = Math.round(performance.now() - t0);
+        answer.textContent = demo.answer;
+        setMetrics({ ...demo.metrics, latency_ms: demo.metrics.latency_ms || elapsed });
+        running = false;
+        runBtn.disabled = false;
+      }
+
+      runBtn.onclick = runScenario;
+      renderChips();
+      resetView();
     </script>
   </body>
 </html>

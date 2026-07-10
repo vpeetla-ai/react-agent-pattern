@@ -36,7 +36,7 @@ No standalone case study — see [venkat-ai.com/work](https://venkat-ai.com/work
 
 | Component | Status | Notes |
 |-----------|--------|-------|
-| Pattern demo + trace UI | ✅ | Live Vercel demo |
+| Pattern demo + trace UI | ✅ | Scenario chips · simulated metrics · compose CTA (VAP/OmniForge) |
 | Core agent loop | ✅ | Reference implementation |
 | LangGraph production graph | 🟡 | Teaching scope — compose into VAP for fleet use |
 | MCP tool bridge | ❌ | See LoopForge / VAP MCP docs |
