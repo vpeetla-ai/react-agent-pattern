@@ -2,7 +2,7 @@
 
 
 <!-- vpeetla-tech-stack:start -->
-[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square)]() [![LangGraph](https://img.shields.io/badge/LangGraph-9333EA?style=flat-square)]() [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square)]() [![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square)]()
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square)]() [![Curriculum stub](https://img.shields.io/badge/Curriculum-stub-0EA5E9?style=flat-square)]() [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square)]() [![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square)]()
 <!-- vpeetla-tech-stack:end -->
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://react-agent-pattern.vercel.app)
 [![Part of Curriculum Agent Patterns](https://img.shields.io/badge/series-Curriculum%20Agent%20Patterns-purple)](https://github.com/vpeetla-ai/react-agent-pattern)
@@ -87,13 +87,13 @@ tests/
   test_react_agent.py
 ```
 
-## Production mapping
+## Path to production (compose into VAP)
 
 Replace `ScriptedReasoningModel` with an LLM gateway that supports tool-call structured output. Keep boundaries intact: the agent should not know vendor SDK details, and tools should remain independently testable.
 
 ## Related
 
 - **Next in series:** [Reflection Agent Pattern](https://github.com/vpeetla-ai/reflection-agent-pattern)
-- **Full pipeline:** [AI Content Factory](https://github.com/vpeetla-ai/ai-content-factory) — multi-agent content orchestration with HITL
+- **Composed pipeline (not this stub):** [AI Content Factory](https://github.com/vpeetla-ai/ai-content-factory) — multi-agent content orchestration with HITL
 
 If this helped you, ⭐ the repo — and star the [series](https://github.com/vpeetla-ai) to follow new patterns.
