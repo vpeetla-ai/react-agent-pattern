@@ -42,6 +42,7 @@ No standalone case study — see [venkat-ai.com/work](https://venkat-ai.com/work
 | MCP tool bridge | ❌ | See LoopForge / VAP MCP docs |
 | AegisAI gateway | ❌ | No side effects in pattern demo |
 | Pytest regression | ✅ | `pytest -q` in repo |
+| Bounded-loop safety (receipt) | ✅ | 15 real trials, deterministic model stub: **9/15 (60%) succeed under bounded `max_steps=5` vs 10/15 (67%) under an unbounded surrogate (`max_steps=200`)**; runaway scenarios burn 5 steps bounded vs 200 unbounded before failing safe either way. Mechanical loop behavior, not LLM output quality — see [`docs/receipts/benchmark.md`](docs/receipts/benchmark.md) and [`scripts/benchmark_bounded_loop.py`](scripts/benchmark_bounded_loop.py). Gated in CI against [`golden-eval-registry`](https://github.com/vpeetla-ai/golden-eval-registry)'s `react_agent_pattern.bounded_loop_v1` suite. |
 
 ## Agent skills (Cursor + Codex)
 
@@ -81,10 +82,15 @@ src/react_agent_pattern/
   models.py         # Model protocol + deterministic demo model
   tools.py          # Tool interface and sample tools
   tracing.py        # Structured trace events
+scripts/
+  benchmark_bounded_loop.py  # Bounded-vs-unbounded loop safety benchmark (real, executed)
 docs/
   ARCHITECTURE.md   # Architect-level design decision record
+  receipts/benchmark.md      # Benchmark output — real per-trial results + methodology
 tests/
   test_react_agent.py
+  test_benchmark_bounded_loop.py  # Fast pytest coverage of the benchmark's real invariants
+  test_golden_eval_gate.py        # CI gate against golden-eval-registry's bounded_loop_v1 suite
 ```
 
 ## Path to production (compose into VAP)
