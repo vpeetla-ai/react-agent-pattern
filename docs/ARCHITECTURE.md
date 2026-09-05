@@ -2,7 +2,7 @@
 
 ## Context
 
-Production AI teams often begin with a single prompt and gradually add retrieval, API calls, calculators, search, and business-system actions. Without an orchestration pattern, the assistant either guesses when it should use tools or loops through tool calls without a reliable stop condition. ReAct solves this by making the cycle explicit: reason, act, observe, and decide whether to continue.
+Most AI teams start with a single prompt, then bolt on retrieval, API calls, calculators, search, business-system actions — one at a time. Without an orchestration pattern, the assistant either guesses when to reach for a tool, or loops through tool calls with no reliable stop condition. ReAct fixes that by making the cycle explicit: reason, act, observe, decide whether to continue.
 
 ## Decision
 
@@ -13,7 +13,7 @@ This repo implements ReAct as a bounded orchestration loop with four isolated re
 3. `Tool` implementations own side effects, argument validation, and domain behavior.
 4. `Trace` records every decision and observation for auditability.
 
-The agent never imports a model SDK or embeds tool logic directly. That boundary is intentional: production systems need to swap model providers, enforce tool policies, add retries, and replay traces without rewriting the orchestration core.
+I keep the agent from importing a model SDK or embedding tool logic directly. That boundary is deliberate — production systems need to swap model providers, enforce tool policies, add retries, and replay traces, without rewriting the orchestration core.
 
 ## When To Use
 
@@ -79,7 +79,7 @@ Headline result (from [`docs/receipts/benchmark.md`](receipts/benchmark.md), gen
 
 ## State Model
 
-The reference implementation keeps state in an in-memory list of observations. In production, split state into:
+The reference implementation keeps state in a plain in-memory list of observations. In production, I'd split it into:
 
 - Request state: user input, current observations, step count.
 - Tool state: idempotency key, arguments, tool result, error details.
